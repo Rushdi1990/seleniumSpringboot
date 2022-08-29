@@ -9,7 +9,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
 import javax.annotation.PostConstruct;
+
 
 @Component
 public abstract class base  {
@@ -22,25 +26,22 @@ public abstract class base  {
 
 
    @PostConstruct
-    public void init(WebDriver driver) {
-       //this.driver = driver;
+    public void init() {
        PageFactory.initElements(driver, this);
        System.out.println("Postconstruct lunched");
        System.out.println("Start driver");
    }
 
 
-    @Before
+
     public void setUp() {
 
         fileProperties = new fileProperties();
-        //WebDriverManager.chromedriver().setup();
-       // driver = new ChromeDriver();
         driver.get(fileProperties.prop.getProperty("url"));
 
     }
 
-    @After
+
     public void tearDown() {
 
         driver.quit();

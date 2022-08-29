@@ -12,21 +12,9 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.*;
 
 @Configuration
-@Profile("!remote")
 public class webDriverConfig {
 
     @Bean
-    @ConditionalOnProperty(name = "browser", havingValue = "edge")
-    public WebDriver edgeDriver() {
-
-        WebDriverManager.edgedriver().setup();
-        return new EdgeDriver();
-    }
-
-    @Bean
-    // @Primary // this will be the default browser
-    @ConditionalOnMissingBean // to catch invalid browser values
-    @Scope("browserscope") // use custom scope
     public WebDriver chromeDriver() {
             WebDriverManager.chromedriver().setup();
             return new ChromeDriver();
