@@ -10,12 +10,7 @@ class SpringSeleniumApplicationTests extends base {
 
 	@Test
 	void contextLoads() {
-
-/*
-			setUp();
-
-    *//*    homePage.WaitUntilHomePageText();
-        homePage.clickOnMenuButton();*/
+		
 
 
 	}

@@ -4,6 +4,8 @@ import com.spring.selenium.config.fileProperties;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
@@ -24,27 +26,25 @@ public abstract class base  {
     @Autowired
     public fileProperties fileProperties;
 
+    public base() {
+        fileProperties = new fileProperties();
+    }
 
-   @PostConstruct
+    @PostConstruct
     public void init() {
        PageFactory.initElements(driver, this);
-       System.out.println("Postconstruct lunched");
-       System.out.println("Start driver");
    }
 
-
-
+    @BeforeEach
     public void setUp() {
 
-        fileProperties = new fileProperties();
         driver.get(fileProperties.prop.getProperty("url"));
 
     }
 
-
+    @AfterEach
     public void tearDown() {
 
         driver.quit();
-        System.out.println("Quiting driver");
     }
 }

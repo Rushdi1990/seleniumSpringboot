@@ -1,26 +1,23 @@
 package com.spring.selenium.util;
 
+import com.spring.selenium.base.base;
 import org.apache.commons.io.FileUtils;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
+import org.junit.Assert;
+import org.openqa.selenium.*;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+@Component
+public class testUtil extends base {
 
-public class testUtil {
 
-    WebDriver driver;
-
-    public testUtil(WebDriver driver) {
-        this.driver = driver;
-    }
 
     public static String TESTDATA_SHEET_PATH = System.getProperty("user.dir") + "/src/main/java/testData/testData.xlsx";
 
@@ -69,6 +66,72 @@ public class testUtil {
     public static long PAGE_LOAD_TIMEOUT = 20;
     public static long IMPLICIT_WAIT = 20;
     public static long WAIT = 20;
+
+    public void click (WebElement element, String text) {
+        try {
+
+            element.click();
+            System.out.println("Clicked on the: "+ text);
+
+        } catch (Exception ex) {
+
+            Assert.fail("Couldn't click on element: "+ text);
+
+        }
+    }
+        public void sendKeys (WebElement element, String text)
+
+        {
+            try {
+
+                element.sendKeys(text);
+                System.out.println("Send Text: "+ text);
+
+            } catch (Exception ex) {
+
+                Assert.fail("Couldn't Send Text: "+ text);
+
+            }
+
+        }
+
+
+
+        public String getText (WebElement element, String text)
+
+        {
+            String gettext = null;
+            try {
+
+                gettext = element.getText();
+                System.out.println("get Text of: " + text);
+
+            } catch (Exception ex) {
+
+                Assert.fail("Couldn't get Text of: " + text);
+
+            }
+
+            return gettext;
+        }
+
+    public void clickJavaScript (WebElement element, String text)
+
+    {
+        try {
+            JavascriptExecutor jse = null;
+            jse.executeScript("arguments[0].click()", element);
+            System.out.println("Clicked on the: "+ text + " using java script");
+
+        } catch (Exception ex) {
+
+            Assert.fail("Couldn't Click on the: "+ text + " using java script");
+
+        }
+
+    }
+
+
 
 
 }
