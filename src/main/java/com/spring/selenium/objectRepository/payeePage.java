@@ -1,12 +1,10 @@
 package com.spring.selenium.objectRepository;
 
 import com.spring.selenium.base.base;
-import com.spring.selenium.util.testUtil;
+import com.spring.selenium.util.webUtil;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,13 +16,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.spring.selenium.util.testUtil.WAIT;
+import static com.spring.selenium.util.webUtil.WAIT;
 
 @Component
 public class payeePage extends base {
 
     @Autowired
-    testUtil testUtil;
+    webUtil webUtil;
 
     private boolean SuccessResult;
     WebDriverWait wait;
@@ -62,108 +60,61 @@ public class payeePage extends base {
 
 
     public boolean verifyPayeeSearchText() {
-
-        return payeeSearchText.isDisplayed();
+        webUtil.waitForElementToDisplay(payeeSearchText, "Payee Search Text", 15,2);
+        return webUtil.elementIsDisplayed(payeeSearchText,"Payee Search Text");
 
     }
 
     public void enterPayeeName() {
-        testUtil.click(payeeNameTextBox, "Payee Name Textbox");
-        testUtil.sendKeys(payeeNameTextBox,fileProperties.prop.getProperty("PayeeName"));
+        webUtil.waitForElementToDisplay(payeeNameTextBox, "Payee Name Textbox field", 15,2);
+        webUtil.click(payeeNameTextBox, "Payee Name Textbox");
+        webUtil.sendKeys(payeeNameTextBox,fileProperties.prop.getProperty("PayeeName"));
 
     }
 
 
     public void clickOnAddPayeeButton() {
-
-        testUtil.click(addPayeeButton, "Add Payee Button");
+        webUtil.waitForElementToDisplay(addPayeeButton, "Add Payee Button", 15,2);
+        webUtil.click(addPayeeButton, "Add Payee Button");
 
 
     }
 
     public void clickOnPayeeTycoCylinder() {
-
-        testUtil.click(tycoCylinderPayee, "Tyco Cylinder Payee");
+        webUtil.waitForElementToDisplay(tycoCylinderPayee, "Tyco Cylinder Payee Record", 15,2);
+        webUtil.click(tycoCylinderPayee, "Tyco Cylinder Payee");
 
 
     }
 
     public boolean verifyPayeeAddedMessage() {
-
-        return payeeAddedMessage.isDisplayed();
-
-    }
-
-    public void waitUntilPayeeAddedMessage() {
-
-        SuccessResult = false;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT));
-
-        for (int i = 1; i <= 4; i++) {
-            try {
-
-                wait.until(ExpectedConditions.visibilityOf(payeeAddedMessage));
-                System.out.println("Waiting until the Payee added message is displayed");
-                SuccessResult = true;
-                break;
-
-            } catch (Exception ex) {
-            }
-        }
-
-        if (!SuccessResult) {
-
-            Assert.fail("Payee added message is not displayed");
-        }
+        webUtil.waitForElementToDisplay(payeeAddedMessage, "Added Payee message", 15,2);
+        return webUtil.elementIsDisplayed(payeeAddedMessage,"Payee Added message Success");
 
     }
 
-
-    public void WaitUntilPayeeApnNews() {
-
-        SuccessResult = false;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT));
-
-        for (int i = 1; i <= 3; i++) {
-            try {
-
-                wait.until(ExpectedConditions.visibilityOf(ApnNewsPayee));
-                System.out.println("Waiting until the Payee is displayed");
-                SuccessResult = true;
-                break;
-
-            } catch (Exception ex) {
-            }
-        }
-
-        if (!SuccessResult) {
-
-            Assert.fail("Payee is not displayed");
-        }
-
-    }
 
     public void clickOnPayeeApnNews() {
-
-        ApnNewsPayee.click();
+        webUtil.waitForElementToDisplay(savePayeeButton, "APN News Payee record", 15,2);
+        webUtil.click(ApnNewsPayee,"APN News Payee record");
 
     }
 
     public void clickOnAddSavePayee() {
-
-        savePayeeButton.click();
+        webUtil.waitForElementToDisplay(savePayeeButton, "Save payee button", 15,2);
+        webUtil.click(savePayeeButton,"Save Payee button");
 
     }
 
     public boolean VerifyValidationMessageWhenPayeeNameEmpty() {
 
-        return validationMessageWhenPayeeNameEmpty.isDisplayed();
+        return webUtil.elementIsDisplayed(validationMessageWhenPayeeNameEmpty,"Validation Message when Payee Name is empty");
 
     }
 
     public boolean VerifyValidationMessagePayeeNameAddedVerified() {
 
-        String checkNoValidationMessage = validationMessageWhenPayeeNameEmpty.getText();
+        String checkNoValidationMessage = webUtil.getText(validationMessageWhenPayeeNameEmpty,"Validation Message when Payee text field is empty");
 
         return checkNoValidationMessage.isEmpty();
 
@@ -171,8 +122,9 @@ public class payeePage extends base {
 
 
     public void clickOnPayeeListNameHeading() {
+        webUtil.waitForElementToDisplay(payeeListNameHeading, "Payee list name heading", 15,2);
+        webUtil.click(payeeListNameHeading, "Payee List Name Heading");
 
-        payeeListNameHeading.click();
     }
 
     //Calculate the number of payees in the payee list

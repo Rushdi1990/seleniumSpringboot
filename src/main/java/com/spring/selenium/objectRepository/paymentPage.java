@@ -2,10 +2,8 @@ package com.spring.selenium.objectRepository;
 
 import com.spring.selenium.base.base;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
@@ -13,7 +11,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-import static com.spring.selenium.util.testUtil.WAIT;
+import static com.spring.selenium.util.webUtil.WAIT;
 
 @Component
 public class paymentPage extends base {

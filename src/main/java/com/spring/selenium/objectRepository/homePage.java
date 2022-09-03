@@ -1,7 +1,7 @@
 package com.spring.selenium.objectRepository;
 
 import com.spring.selenium.base.base;
-import com.spring.selenium.util.testUtil;
+import com.spring.selenium.util.webUtil;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,23 +9,25 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.testng.Assert;
+
 import java.time.Duration;
 
 import static com.spring.selenium.objectRepository.paymentPage.enteredAmount;
-import static com.spring.selenium.util.testUtil.WAIT;
 
 
 @Component
 public class homePage extends base {
 
 @Autowired
-testUtil testUtil;
+webUtil webUtil;
 
     private boolean SuccessResult;
     double billAccountblc;
     double everydayAccountblc;
     WebDriverWait wait;
 
+    @FindBy(xpath = "//*[@id=\"account-ACC-6\"]/div[2]/span[1]/h3")
+    public WebElement homePageText;
 
     @FindBy(xpath = "//*[@id=\"left\"]/div[1]/div/button/span/span/span")
     private WebElement menuLabel;
@@ -49,7 +51,7 @@ testUtil testUtil;
 
     public double getBeforeEverydayAccountAmmount() {
 
-        String everyDayAccBeforeBalance = getEveryDayAccountBalance.getText();
+        String everyDayAccBeforeBalance = webUtil.getText(getEveryDayAccountBalance,"Everyday Account Balance");
         everyDayAccBeforeBalance = everyDayAccBeforeBalance.replaceAll("[^\\d.]", "");
         double everyDayAccBalanceNumBefore = Double.parseDouble(everyDayAccBeforeBalance);
         return everyDayAccBalanceNumBefore;
@@ -59,7 +61,7 @@ testUtil testUtil;
 
     public double getBeforeBillAccountAmmount() {
 
-        String billAccBeforeBalance = getBillAccountBalance.getText();
+        String billAccBeforeBalance = webUtil.getText(getBillAccountBalance,"Bill Account Balance");
         billAccBeforeBalance = billAccBeforeBalance.replaceAll("[^\\d.]", "");
         double billAccBalanceNumBefore = Double.parseDouble(billAccBeforeBalance);
         return billAccBalanceNumBefore;
@@ -69,7 +71,7 @@ testUtil testUtil;
 
     public double getTheBillAccountBalanceAfterTransfer() {
 
-        String billAccBalance = getBillAccountBalance.getText();
+        String billAccBalance = webUtil.getText(getBillAccountBalance,"Bill Account Balance");
         billAccBalance = billAccBalance.replaceAll("[^\\d.]", "");
         double billAccBalanceNumAfter = Double.parseDouble(billAccBalance);
 
@@ -80,7 +82,7 @@ testUtil testUtil;
 
     public double getTheEveryDayAccountBalanceAfterTransfer() {
 
-        String everyDayAccBalance = getEveryDayAccountBalance.getText();
+        String everyDayAccBalance = webUtil.getText(getEveryDayAccountBalance,"Everyday Account Balance");
         everyDayAccBalance = everyDayAccBalance.replaceAll("[^\\d.]", "");
         double everyDayAccBalanceNumAfter = Double.parseDouble(everyDayAccBalance);
 
@@ -116,82 +118,38 @@ testUtil testUtil;
 
     public String verifyMenuLabel() {
 
-
-        String menulabel = menuLabel.getText();
+        webUtil.waitForElementToDisplay(menuLabel, "Menu Label", 15,8);
+        String menulabel = webUtil.getText(menuLabel,"Menu Label");
         billAccountblc = getBeforeBillAccountAmmount();
         everydayAccountblc = getBeforeEverydayAccountAmmount();
         return menulabel;
 
     }
 
-    public void WaitUntilHomePageText() {
-
-        SuccessResult = false;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT));
-
-
-        for (int i = 1; i <= 3; i++) {
-            try {
-                wait.until(ExpectedConditions.visibilityOf(menuLabel));
-                System.out.println("Waiting until the Home page is displayed");
-                SuccessResult = true;
-                break;
-
-
-            } catch (Exception ex) {
-            }
-        }
-
-        if (!SuccessResult) {
-
-
-            Assert.fail("Home page is not displayed");
-        }
-
-    }
-
     public void WaitUntilTransferSuccessfulMessage() {
 
-        SuccessResult = false;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT));
-
-
-        for (int i = 1; i <= 3; i++) {
-            try {
-                wait.until(ExpectedConditions.visibilityOf(transferSuccessfullMessage));
-                System.out.println("Waiting until the Transfer Successful message");
-                SuccessResult = true;
-                break;
-
-
-            } catch (Exception ex) {
-            }
-        }
-
-        if (!SuccessResult) {
-
-
-            Assert.fail("Transfer Successful message is not displayed");
-        }
+        webUtil.waitForElementToDisplay(transferSuccessfullMessage, "transferSuccessfullMessage", 15,2);
 
     }
 
+
     public void clickOnMenuButton() {
-        testUtil.click(menuLabel,"Menu button");
+        webUtil.waitForElementToDisplay(menuLabel, "Menu Label", 15,8);
+        webUtil.click(menuLabel,"Menu button");
 
     }
 
 
     public payeePage ClickMenuButtonPayee() {
-
-        testUtil.click(payeeMenuButton,"Payee Menu button");
+        webUtil.waitForElementToDisplay(payeeMenuButton, "Payee Menu button", 15,2);
+        webUtil.click(payeeMenuButton,"Payee Menu button");
         return new payeePage();
 
     }
 
     public paymentPage ClickOnPayOrTransferMenuButton() {
-
-        testUtil.click(payOrTransferMenuButton, "Pay or transfer menu button");
+        webUtil.waitForElementToDisplay(payOrTransferMenuButton, "Pay or transfer menu button", 15,2);
+        webUtil.click(payOrTransferMenuButton, "Pay or transfer menu button");
         return new paymentPage();
 
     }
