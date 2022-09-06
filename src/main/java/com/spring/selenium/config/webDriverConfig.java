@@ -15,6 +15,7 @@ import org.springframework.context.annotation.*;
 public class webDriverConfig {
 
     @Bean
+    @Scope("browserscope")
     public WebDriver chromeDriver() {
             WebDriverManager.chromedriver().setup();
             return new ChromeDriver();

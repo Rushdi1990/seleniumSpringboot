@@ -2,20 +2,28 @@ package com.spring.selenium.objectRepository;
 
 import com.spring.selenium.base.base;
 import com.spring.selenium.util.webUtil;
+import org.junit.Assert;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.testng.Assert;
+
 
 import java.time.Duration;
 
 import static com.spring.selenium.objectRepository.paymentPage.enteredAmount;
 
 
+
+
+@Lazy
 @Component
+@Scope("prototype")
 public class homePage extends base {
 
 @Autowired
@@ -99,7 +107,7 @@ webUtil webUtil;
 
         }
 
-        Assert.assertEquals(totalbillaccoutnblc, getTheBillAccountBalanceAfterTransfer(), "Bill account balance is incorrect");
+        Assertions.assertEquals(totalbillaccoutnblc, getTheBillAccountBalanceAfterTransfer(), "Bill account balance is incorrect");
     }
 
     //Calculate the everyday account balance
@@ -111,7 +119,7 @@ webUtil webUtil;
             totaleverydayaccoutnblc = 0;
 
         }
-        Assert.assertEquals(totaleverydayaccoutnblc, getTheEveryDayAccountBalanceAfterTransfer(), "Everyday account balance is incorrect");
+        Assertions.assertEquals(totaleverydayaccoutnblc, getTheEveryDayAccountBalanceAfterTransfer(), "Everyday account balance is incorrect");
 
     }
 

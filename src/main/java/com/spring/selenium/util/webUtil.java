@@ -8,6 +8,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.junit.Assert;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
@@ -102,6 +103,21 @@ public class webUtil extends base {
         }
     }
 
+
+    public void clickUsingAction(WebElement element, String text) {
+        try {
+
+            Actions action = new Actions(driver);
+            action.moveToElement(element).click().perform();
+            System.out.println("Clicked on the: " + text);
+
+        } catch (Exception ex) {
+
+            Assert.fail("Couldn't click on element: " + text);
+
+        }
+    }
+
     public void sendKeys(WebElement element, String text) {
         try {
 
@@ -135,7 +151,7 @@ public class webUtil extends base {
 
     public void clickJavaScript(WebElement element, String text) {
         try {
-            JavascriptExecutor jse = null;
+
             jse.executeScript("arguments[0].click()", element);
             System.out.println("Clicked on the: " + text + " using java script");
 

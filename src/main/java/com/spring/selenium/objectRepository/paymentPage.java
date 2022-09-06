@@ -1,25 +1,35 @@
 package com.spring.selenium.objectRepository;
 
 import com.spring.selenium.base.base;
+import com.spring.selenium.util.webUtil;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.testng.Assert;
 
 import java.time.Duration;
 
 import static com.spring.selenium.util.webUtil.WAIT;
 
+@Lazy
 @Component
+@Scope("prototype")
 public class paymentPage extends base {
 
-    private boolean SuccessResult;
+    @Autowired
+    webUtil webUtil;
+
     static double enteredAmount;
-    JavascriptExecutor jse;
-    WebDriverWait wait;
+
 
 
     @FindBy(xpath = "//p[contains(text(),'Everyday')]")
@@ -37,7 +47,7 @@ public class paymentPage extends base {
     private WebElement toAccountChooserButton;
 
     //Account Tab Button
-    @FindBy(id = "react-tabs-2")
+    @FindBy(xpath = "//li[@data-testid='to-account-accounts-tab']")
     private WebElement toAccountChooserAccountTab;
 
     //Amount Text field
@@ -51,84 +61,64 @@ public class paymentPage extends base {
     private WebElement forYourStatementLabel;
 
 
-    public void clickOnAccountChooser() {
+    public void clickOnAccountChooser() throws InterruptedException {
+        Thread.sleep(5000);
+        webUtil.waitForElementToDisplay(accountChooserButton,"Account Chooser Button",15,2);
+        webUtil.click(accountChooserButton,"Account Chooser");
 
-        accountChooserButton.click();
 
     }
 
-    public void clickOnToAccountChooser() {
-
+    public void clickOnToAccountChooser() throws InterruptedException {
+        Thread.sleep(5000);
+        webUtil.waitForElementToDisplay(forYourStatementLabel,"For your Statement Label",15,5);
+        webUtil.waitForElementToDisplay(toAccountChooserButton,"To Account Chooser Button",15,2);
+        webUtil.clickUsingAction(toAccountChooserButton, "To Account Chooser");
+    }
+        /*
         WebElement ele = toAccountChooserButton;
-        jse.executeScript("arguments[0].click()", ele);
+        jse.executeScript("arguments[0].click()", ele);*/
 
-    }
+    public void clickOntoAccountChooserAccountTab() throws InterruptedException {
 
-    public void WaitUntilforYourStatementLabel() throws InterruptedException {
+        Thread.sleep(5000);
+        webUtil.waitForElementToDisplay(toAccountChooserAccountTab,"To Account Chooser Tab",15,2);
+        webUtil.clickUsingAction(toAccountChooserAccountTab,"To Account Chooser Tab");
 
-        SuccessResult = false;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(WAIT));
-
-        for (int i = 1; i <= 3; i++) {
-            try {
-
-                wait.until(ExpectedConditions.visibilityOf(forYourStatementLabel));
-                System.out.println("Waiting until the for your statement Label is displayed");
-                SuccessResult = true;
-                break;
-
-
-            } catch (Exception ex) {
-            }
-        }
-
-        if (!SuccessResult) {
-
-
-            Assert.fail("for your statement Label is not displayed");
-        }
 
     }
 
 
-    public void clickOntoAccountChooserAccountTab() {
-
-
-        WebElement ele = toAccountChooserAccountTab;
-        jse.executeScript("arguments[0].click()", ele);
-
-    }
-
-
-    public void clickOnTransferAmountTexField(String amount) {
-
-        WebElement ele = transferAmountTexField;
-        jse.executeScript("arguments[0].click()", ele);
-        transferAmountTexField.sendKeys(amount);
-        enteredAmount = Double.parseDouble(amount);
+    public void clickOnTransferAmountTexField() throws InterruptedException {
+        webUtil.waitForElementToDisplay(transferAmountTexField,"Transfer Amount Field",15,2);
+        webUtil.clickUsingAction(transferAmountTexField,"Transfer Amount Field");
+        Thread.sleep(10000);
+        webUtil.sendKeys(transferAmountTexField,fileProperties.prop.getProperty("amount"));
+        Thread.sleep(10000);
+        enteredAmount = Double.parseDouble(fileProperties.prop.getProperty("amount"));
 
     }
 
 
     public void clickOnTransferButton() {
 
-        WebElement ele = TransferButton;
-        jse.executeScript("arguments[0].click()", ele);
+        webUtil.waitForElementToDisplay(TransferButton,"Transfer Button",15,2);
+        webUtil.clickUsingAction(TransferButton,"Transfer Button");
 
     }
 
 
-    public void ClickOnbillAccount() {
+    public void ClickOnbillAccount() throws InterruptedException {
 
-        WebElement ele = billAccount;
-        jse.executeScript("arguments[0].click()", ele);
+        webUtil.waitForElementToDisplay(billAccount,"Bill Account",15,2);
+        webUtil.clickUsingAction(billAccount,"Bill Account");
 
     }
 
-    public void ClickOnEveryDayAccount() {
+    public void ClickOnEveryDayAccount() throws InterruptedException {
 
-        WebElement ele = EveryDayAccount;
-        jse.executeScript("arguments[0].click()", ele);
+        webUtil.waitForElementToDisplay(EveryDayAccount,"Everyday Account",15,5);
+        webUtil.clickUsingAction(EveryDayAccount,"Every day account");
 
     }
 

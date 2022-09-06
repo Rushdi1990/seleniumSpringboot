@@ -2,14 +2,16 @@ package com.spring.selenium.objectRepository;
 
 import com.spring.selenium.base.base;
 import com.spring.selenium.util.webUtil;
+import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.ArrayList;
@@ -18,14 +20,13 @@ import java.util.List;
 
 import static com.spring.selenium.util.webUtil.WAIT;
 
+@Lazy
 @Component
+@Scope("prototype")
 public class payeePage extends base {
 
     @Autowired
     webUtil webUtil;
-
-    private boolean SuccessResult;
-    WebDriverWait wait;
 
 
     @FindBy(xpath = "//input[@placeholder='Search payees']")
@@ -164,7 +165,7 @@ public class payeePage extends base {
         List AscempList = new ArrayList();
         AscempList.addAll(ActualPayeeList);
         Collections.sort(AscempList);
-        Assert.assertTrue(ActualPayeeList.equals(AscempList), "Payee list is not in the Ascending Order");
+        Assertions.assertTrue(ActualPayeeList.equals(AscempList), "Payee list is not in the Ascending Order");
 
     }
 
@@ -175,8 +176,17 @@ public class payeePage extends base {
         List DesctempList = new ArrayList();
         DesctempList.addAll(ActualPayeeList);
         Collections.sort(DesctempList, Collections.reverseOrder());
-        Assert.assertTrue(ActualPayeeList.equals(DesctempList), "Payee list is not in the Descending Order");
+        Assertions.assertTrue(ActualPayeeList.equals(DesctempList), "Payee list is not in the Descending Order");
 
     }
+
+
+/*    public void navigateToPayeePage() {
+        Assertions.assertEquals(homePage.verifyMenuLabel(), "Menu");
+        homePage.clickOnMenuButton();
+        homePage.ClickMenuButtonPayee();
+        Assertions.assertTrue(payeePage.verifyPayeeSearchText());
+
+    }*/
 
 }

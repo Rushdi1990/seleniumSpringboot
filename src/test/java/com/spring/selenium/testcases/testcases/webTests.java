@@ -5,11 +5,12 @@ import com.spring.selenium.objectRepository.homePage;
 import com.spring.selenium.objectRepository.payeePage;
 import com.spring.selenium.objectRepository.paymentPage;
 
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.testng.Assert;
 
 @SpringBootTest
 public class webTests extends base {
@@ -25,10 +26,10 @@ public class webTests extends base {
 
     @Test
     public void navigateToPayeePage() throws InterruptedException {
-        Assert.assertEquals(homePage.verifyMenuLabel(), "Menu");
+        Assertions.assertEquals(homePage.verifyMenuLabel(), "Menu");
         homePage.clickOnMenuButton();
         homePage.ClickMenuButtonPayee();
-        Assert.assertTrue(payeePage.verifyPayeeSearchText());
+        Assertions.assertTrue(payeePage.verifyPayeeSearchText());
 
     }
     @Test
@@ -39,7 +40,7 @@ public class webTests extends base {
         payeePage.enterPayeeName();
         payeePage.clickOnPayeeTycoCylinder();
         payeePage.clickOnAddSavePayee();
-        Assert.assertTrue(payeePage.verifyPayeeAddedMessage());
+        Assertions.assertTrue(payeePage.verifyPayeeAddedMessage());
 
     }
 
@@ -50,10 +51,10 @@ public class webTests extends base {
         navigateToPayeePage();
         payeePage.clickOnAddPayeeButton();
         payeePage.clickOnAddSavePayee();
-        Assert.assertTrue(payeePage.VerifyValidationMessageWhenPayeeNameEmpty());
+        Assertions.assertTrue(payeePage.VerifyValidationMessageWhenPayeeNameEmpty());
         payeePage.enterPayeeName();
         payeePage.clickOnPayeeTycoCylinder();
-        Assert.assertTrue(payeePage.VerifyValidationMessagePayeeNameAddedVerified());
+        Assertions.assertTrue(payeePage.VerifyValidationMessagePayeeNameAddedVerified());
 
     }
 
@@ -66,7 +67,7 @@ public class webTests extends base {
         payeePage.enterPayeeName();
         payeePage.clickOnPayeeTycoCylinder();
         payeePage.clickOnAddSavePayee();
-        Assert.assertTrue(payeePage.verifyPayeeAddedMessage());
+        Assertions.assertTrue(payeePage.verifyPayeeAddedMessage());
         payeePage.checkListAscendingOrder();
         payeePage.clickOnPayeeListNameHeading();
         payeePage.checkListDecendingOrder();
@@ -74,28 +75,24 @@ public class webTests extends base {
     }
 
     // Navigate to the payment page and transfer $500 from everyday account to bill acount
-   /* @Test
+    @Test
     @DisplayName("TC5: Navigate to Payments page")
-    public void navigatePayementPage(String Amount) throws InterruptedException {
+    public void navigatePayementPage() throws InterruptedException {
 
-        Assert.assertEquals(homePage.verifyMenuLabel(), "Menu");
+        Assertions.assertEquals(homePage.verifyMenuLabel(), "Menu");
         homePage.clickOnMenuButton();
         homePage.ClickOnPayOrTransferMenuButton();
         paymentPage.clickOnAccountChooser();
         paymentPage.ClickOnEveryDayAccount();
-        paymentPage.WaitUntilforYourStatementLabel();
         paymentPage.clickOnToAccountChooser();
-        paymentPage.WaitUntilforYourStatementLabel();
         paymentPage.clickOntoAccountChooserAccountTab();
         paymentPage.ClickOnbillAccount();
-        paymentPage.WaitUntilforYourStatementLabel();
-        paymentPage.clickOnTransferAmountTexField(Amount);
+        paymentPage.clickOnTransferAmountTexField();
         paymentPage.clickOnTransferButton();
         homePage.WaitUntilTransferSuccessfulMessage();
         homePage.calculateRemainingBillAccountBalance();
         homePage.calculateRemainingEveryDayAccountBalance();
 
     }
-*/
 
 }
