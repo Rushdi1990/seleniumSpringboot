@@ -62,15 +62,15 @@ public class paymentPage extends base {
 
 
     public void clickOnAccountChooser() throws InterruptedException {
-        Thread.sleep(5000);
+
         webUtil.waitForElementToDisplay(accountChooserButton,"Account Chooser Button",15,2);
-        webUtil.click(accountChooserButton,"Account Chooser");
+        webUtil.clickUsingAction(accountChooserButton,"Account Chooser");
 
 
     }
 
     public void clickOnToAccountChooser() throws InterruptedException {
-        Thread.sleep(5000);
+
         webUtil.waitForElementToDisplay(forYourStatementLabel,"For your Statement Label",15,5);
         webUtil.waitForElementToDisplay(toAccountChooserButton,"To Account Chooser Button",15,2);
         webUtil.clickUsingAction(toAccountChooserButton, "To Account Chooser");
@@ -81,7 +81,7 @@ public class paymentPage extends base {
 
     public void clickOntoAccountChooserAccountTab() throws InterruptedException {
 
-        Thread.sleep(5000);
+
         webUtil.waitForElementToDisplay(toAccountChooserAccountTab,"To Account Chooser Tab",15,2);
         webUtil.clickUsingAction(toAccountChooserAccountTab,"To Account Chooser Tab");
 
@@ -92,9 +92,9 @@ public class paymentPage extends base {
     public void clickOnTransferAmountTexField() throws InterruptedException {
         webUtil.waitForElementToDisplay(transferAmountTexField,"Transfer Amount Field",15,2);
         webUtil.clickUsingAction(transferAmountTexField,"Transfer Amount Field");
-        Thread.sleep(10000);
+
         webUtil.sendKeys(transferAmountTexField,fileProperties.prop.getProperty("amount"));
-        Thread.sleep(10000);
+
         enteredAmount = Double.parseDouble(fileProperties.prop.getProperty("amount"));
 
     }
