@@ -45,12 +45,20 @@ public abstract class base  {
 
     }
 
-
     @AfterEach
+    public void close() {
+
+        driver.close();
+
+    }
+    @AfterClass
     public void tearDown() {
 
         driver.quit();
 
     }
+
+
+
 
 }

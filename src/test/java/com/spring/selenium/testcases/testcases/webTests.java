@@ -25,6 +25,7 @@ public class webTests extends base {
     paymentPage paymentPage;
 
     @Test
+    @DisplayName("TC1: Navigate to Payee page")
     public void navigateToPayeePage() throws InterruptedException {
         Assertions.assertEquals(homePage.verifyMenuLabel(), "Menu");
         homePage.clickOnMenuButton();
@@ -33,6 +34,7 @@ public class webTests extends base {
 
     }
     @Test
+    @DisplayName("TC2: Add new Payee")
     public void addNewPayee() throws InterruptedException {
 
         navigateToPayeePage();
