@@ -16,8 +16,10 @@ public class fileProperties {
 
         try {
             prop = new Properties();
-            FileInputStream ip = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/config.properties");
+            FileInputStream ip = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/application.properties");
+            FileInputStream ip2 = new FileInputStream(System.getProperty("user.dir") + "/src/main/resources/data.properties");
             prop.load(ip);
+            prop.load(ip2);
         } catch (
                 FileNotFoundException e) {
             e.printStackTrace();

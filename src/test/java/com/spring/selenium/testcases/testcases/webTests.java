@@ -1,11 +1,8 @@
 package com.spring.selenium.testcases.testcases;
-
 import com.spring.selenium.base.base;
 import com.spring.selenium.objectRepository.homePage;
 import com.spring.selenium.objectRepository.payeePage;
 import com.spring.selenium.objectRepository.paymentPage;
-
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
