@@ -29,7 +29,7 @@ public class webUtil extends base {
     private ApplicationContext ctx;
     private WebDriverWait wait;
     private JavascriptExecutor executor;
-
+    private Actions actions;
 
     public static String TESTDATA_SHEET_PATH = System.getProperty("user.dir") + "/src/main/java/testData/testData.xlsx";
 
@@ -113,8 +113,8 @@ public class webUtil extends base {
     public void clickUsingAction(WebElement element, String text) {
         try {
             Thread.sleep(2000);
-            Actions action = new Actions(ctx.getBean(WebDriver.class));
-            action.moveToElement(element).click().perform();
+            actions = new Actions(ctx.getBean(WebDriver.class));
+            actions.moveToElement(element).click().perform();
             System.out.println("Clicked on the: " + text);
 
         } catch (Exception ex) {
@@ -202,7 +202,7 @@ public class webUtil extends base {
 
             try {
                 Thread.sleep(2000);
-                executor = (JavascriptExecutor) ctx.getBean(WebDriver.class);
+                executor = (JavascriptExecutor) ctx.getBean(JavascriptExecutor.class);
                 executor.executeScript("arguments[0].click()", element);
                 System.out.println("Clicked on the: " + text + " using java script");
                 Thread.sleep(1000);
