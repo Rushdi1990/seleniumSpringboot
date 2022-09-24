@@ -112,8 +112,8 @@ public class webUtil extends base {
 
     public void clickUsingAction(WebElement element, String text) {
         try {
-
-            Actions action = new Actions(ctx.getBean(driver.getClass()));
+            Thread.sleep(2000);
+            Actions action = new Actions(ctx.getBean(WebDriver.class));
             action.moveToElement(element).click().perform();
             System.out.println("Clicked on the: " + text);
 
@@ -127,7 +127,7 @@ public class webUtil extends base {
     public void pressTabAction(String text) {
         try {
             Thread.sleep(5000);
-            Actions action = new Actions(ctx.getBean(driver.getClass()));
+            Actions action = new Actions(ctx.getBean(WebDriver.class));
             action.sendKeys(Keys.TAB).perform();
             System.out.println("Clicked on the: " + text);
 
@@ -141,7 +141,7 @@ public class webUtil extends base {
     public void pressEnterAction(String text) {
         try {
             Thread.sleep(5000);
-            Actions action = new Actions(ctx.getBean(driver.getClass()));
+            Actions action = new Actions(ctx.getBean(WebDriver.class));
             action.sendKeys(Keys.ENTER).build().perform();
             System.out.println("Pressed on the: " + text);
 
@@ -155,7 +155,7 @@ public class webUtil extends base {
     public void mouseHoverOverAction(WebElement element, String text) {
         try {
 
-            Actions action = new Actions(ctx.getBean(driver.getClass()));
+            Actions action = new Actions(ctx.getBean(WebDriver.class));
             action.moveToElement(element).build().perform();
             System.out.println("Move on the: " + text);
 
@@ -202,7 +202,7 @@ public class webUtil extends base {
 
             try {
                 Thread.sleep(2000);
-                executor = (JavascriptExecutor) ctx.getBean(driver.getClass());
+                executor = (JavascriptExecutor) ctx.getBean(WebDriver.class);
                 executor.executeScript("arguments[0].click()", element);
                 System.out.println("Clicked on the: " + text + " using java script");
                 Thread.sleep(1000);
