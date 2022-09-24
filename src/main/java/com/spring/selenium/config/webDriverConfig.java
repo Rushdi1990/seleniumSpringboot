@@ -26,7 +26,7 @@ public class webDriverConfig {
 
             WebDriverManager.chromedriver().setup();
             ChromeOptions options = new ChromeOptions();
-            options.setHeadless(false);
+            options.setHeadless(true);
             options.addArguments("disable-infobars");
             options.setExperimentalOption("useAutomationExtension", false);
             options.addArguments("--disable-gpu");
@@ -36,6 +36,8 @@ public class webDriverConfig {
             options.addArguments("--window-size=1920,1080");
             options.addArguments("--ignore-certificate-errors");
             options.addArguments("force-device-scale-factor=1");
+            options.addArguments("--disable-extensions");
+            options.addArguments("--user-agent=Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/105.0.5195.127 Safari/537.36");
             return new ChromeDriver(options);
 
     }
@@ -48,9 +50,7 @@ public class webDriverConfig {
 
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
-            options.addArguments("allow-insecure-localhost");
             options.addArguments("--window-size=1920,1080");
-            options.addPreference("xpinstall.signatures.required", false);
             options.setHeadless(true);
             return new FirefoxDriver(options);
 

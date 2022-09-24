@@ -32,6 +32,9 @@ public class paymentPage extends base {
 
 
 
+    @FindBy(xpath = "/html/body/div[8]/div/div/div[2]/div/div/div/span/span[1]/input")
+    private WebElement accounSearchField;
+
     @FindBy(xpath = "//p[contains(text(),'Everyday')]")
     private WebElement EveryDayAccount;
 
@@ -64,7 +67,7 @@ public class paymentPage extends base {
     public void clickOnAccountChooser() throws InterruptedException {
 
         webUtil.waitForElementToDisplay(accountChooserButton,"Account Chooser Button",15,2);
-        webUtil.clickJavaScript(accountChooserButton,"Account Chooser");
+        webUtil.click(accountChooserButton,"Account Chooser");
 
 
     }
@@ -90,7 +93,7 @@ public class paymentPage extends base {
     public void clickOnTransferAmountTexField() throws InterruptedException {
         webUtil.waitForElementToDisplay(transferAmountTexField,"Transfer Amount Field",15,2);
         webUtil.clickUsingAction(transferAmountTexField,"Transfer Amount Field");
-
+        webUtil.waitForElementToDisplay(TransferButton,"Transfer Button",15,2);
         webUtil.sendKeys(transferAmountTexField,fileProperties.prop.getProperty("amount"));
 
         enteredAmount = Double.parseDouble(fileProperties.prop.getProperty("amount"));
@@ -115,6 +118,10 @@ public class paymentPage extends base {
 
     public void ClickOnEveryDayAccount() throws InterruptedException {
 
+        webUtil.waitForElementToDisplay(EveryDayAccount,"Everyday Account",15,5);
+        Thread.sleep(3000);
+     /*   webUtil.click(accounSearchField,"Everyday Search field");
+        webUtil.sendKeys(accounSearchField,"Everyday Search field");*/
         webUtil.waitForElementToDisplay(EveryDayAccount,"Everyday Account",15,5);
         webUtil.clickJavaScript(EveryDayAccount,"Everyday Account");
 

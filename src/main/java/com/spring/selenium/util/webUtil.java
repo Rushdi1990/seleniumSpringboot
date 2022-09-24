@@ -11,6 +11,9 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -22,8 +25,11 @@ import java.time.Duration;
 @Component
 public class webUtil extends base {
 
+    @Autowired
+    private ApplicationContext ctx;
     private WebDriverWait wait;
-    private JavascriptExecutor jse;
+    private JavascriptExecutor executor;
+
 
     public static String TESTDATA_SHEET_PATH = System.getProperty("user.dir") + "/src/main/java/testData/testData.xlsx";
 
@@ -107,7 +113,7 @@ public class webUtil extends base {
     public void clickUsingAction(WebElement element, String text) {
         try {
 
-            Actions action = new Actions(driver);
+            Actions action = new Actions(ctx.getBean(driver.getClass()));
             action.moveToElement(element).click().perform();
             System.out.println("Clicked on the: " + text);
 
@@ -117,6 +123,49 @@ public class webUtil extends base {
 
         }
     }
+
+    public void pressTabAction(String text) {
+        try {
+            Thread.sleep(5000);
+            Actions action = new Actions(ctx.getBean(driver.getClass()));
+            action.sendKeys(Keys.TAB).perform();
+            System.out.println("Clicked on the: " + text);
+
+        } catch (Exception ex) {
+
+            Assert.fail("Couldn't click on element: " + text);
+
+        }
+    }
+
+    public void pressEnterAction(String text) {
+        try {
+            Thread.sleep(5000);
+            Actions action = new Actions(ctx.getBean(driver.getClass()));
+            action.sendKeys(Keys.ENTER).build().perform();
+            System.out.println("Pressed on the: " + text);
+
+        } catch (Exception ex) {
+
+            Assert.fail("Couldn't Press on element: " + text);
+
+        }
+    }
+
+    public void mouseHoverOverAction(WebElement element, String text) {
+        try {
+
+            Actions action = new Actions(ctx.getBean(driver.getClass()));
+            action.moveToElement(element).build().perform();
+            System.out.println("Move on the: " + text);
+
+        } catch (Exception ex) {
+
+            Assert.fail("Couldn't Move on element: " + text);
+
+        }
+    }
+
 
     public void sendKeys(WebElement element, String text) {
         try {
@@ -150,17 +199,18 @@ public class webUtil extends base {
     }
 
     public void clickJavaScript(WebElement element, String text) {
-        try {
-            Thread.sleep(5000);
-            JavascriptExecutor executor = (JavascriptExecutor)driver;
-            executor.executeScript("arguments[0].click()", element);
-            System.out.println("Clicked on the: " + text + " using java script");
 
-        } catch (Exception ex) {
+            try {
+                Thread.sleep(2000);
+                executor = (JavascriptExecutor) ctx.getBean(driver.getClass());
+                executor.executeScript("arguments[0].click()", element);
+                System.out.println("Clicked on the: " + text + " using java script");
+                Thread.sleep(1000);
+            } catch (Exception ex) {
 
-            Assert.fail("Couldn't Click on the: " + text + " using java script");
+                System.out.println(ex.getMessage());
 
-        }
+            }
 
     }
 

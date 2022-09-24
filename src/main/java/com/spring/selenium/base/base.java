@@ -23,7 +23,6 @@ public abstract class base  {
 
     protected fileProperties fileProperties;
 
-
     public base() {
         fileProperties = new fileProperties();
     }
@@ -42,17 +41,11 @@ public abstract class base  {
     @AfterEach
     public void close() {
 
-        driver.close();
+        if (driver != null) {
+            driver.quit();
+        }
 
     }
-    @AfterClass
-    public void tearDown() {
-
-        driver.quit();
-
-    }
-
-
 
 
 }
