@@ -49,6 +49,7 @@ public class webDriverConfig {
             WebDriverManager.firefoxdriver().setup();
             FirefoxOptions options = new FirefoxOptions();
             options.addArguments("allow-insecure-localhost");
+            options.addArguments("--window-size=1920,1080");
             options.addPreference("xpinstall.signatures.required", false);
             options.setHeadless(true);
             return new FirefoxDriver(options);

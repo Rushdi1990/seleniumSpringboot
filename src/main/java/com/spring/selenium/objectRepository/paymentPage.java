@@ -64,7 +64,7 @@ public class paymentPage extends base {
     public void clickOnAccountChooser() throws InterruptedException {
 
         webUtil.waitForElementToDisplay(accountChooserButton,"Account Chooser Button",15,2);
-        webUtil.clickUsingAction(accountChooserButton,"Account Chooser");
+        webUtil.clickJavaScript(accountChooserButton,"Account Chooser");
 
 
     }
@@ -73,17 +73,15 @@ public class paymentPage extends base {
 
         webUtil.waitForElementToDisplay(forYourStatementLabel,"For your Statement Label",15,5);
         webUtil.waitForElementToDisplay(toAccountChooserButton,"To Account Chooser Button",15,2);
-        webUtil.clickUsingAction(toAccountChooserButton, "To Account Chooser");
+        webUtil.clickJavaScript(toAccountChooserButton, "To Account Chooser");
     }
-        /*
-        WebElement ele = toAccountChooserButton;
-        jse.executeScript("arguments[0].click()", ele);*/
+
 
     public void clickOntoAccountChooserAccountTab() throws InterruptedException {
 
 
         webUtil.waitForElementToDisplay(toAccountChooserAccountTab,"To Account Chooser Tab",15,2);
-        webUtil.clickUsingAction(toAccountChooserAccountTab,"To Account Chooser Tab");
+        webUtil.clickJavaScript(toAccountChooserAccountTab,"To Account Chooser Tab");
 
 
     }
@@ -103,7 +101,7 @@ public class paymentPage extends base {
     public void clickOnTransferButton() {
 
         webUtil.waitForElementToDisplay(TransferButton,"Transfer Button",15,2);
-        webUtil.clickUsingAction(TransferButton,"Transfer Button");
+        webUtil.clickJavaScript(TransferButton,"Transfer Button");
 
     }
 
@@ -118,7 +116,7 @@ public class paymentPage extends base {
     public void ClickOnEveryDayAccount() throws InterruptedException {
 
         webUtil.waitForElementToDisplay(EveryDayAccount,"Everyday Account",15,5);
-        webUtil.clickUsingAction(EveryDayAccount,"Every day account");
+        webUtil.clickJavaScript(EveryDayAccount,"Everyday Account");
 
     }
 

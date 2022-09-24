@@ -151,8 +151,9 @@ public class webUtil extends base {
 
     public void clickJavaScript(WebElement element, String text) {
         try {
-
-            jse.executeScript("arguments[0].click()", element);
+            Thread.sleep(5000);
+            JavascriptExecutor executor = (JavascriptExecutor)driver;
+            executor.executeScript("arguments[0].click()", element);
             System.out.println("Clicked on the: " + text + " using java script");
 
         } catch (Exception ex) {
